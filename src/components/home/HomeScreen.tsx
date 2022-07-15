@@ -5,29 +5,26 @@ import { useFetch } from '../../hooks/useFetch'
 
 import './Home.css'
 
-const url: string = 'https://swapi.dev/api/people'
+const url = 'https://swapi.dev/api/people'
 
 export const HomeScreen = () => {
-  const [people, setPeople] = useState<Array<Person>>([])
-  const {data, loading} = useFetch<PeopleResponseFromAPI>(url)!
-
-  useEffect(() => {
-
-    // fetchPeople()
-    // .then(mapFromApiToPeople)
-    // .then(setPeople)
-  }, [])
+  const { data, loading } = useFetch<PeopleResponseFromAPI>(url)
   
   return (
     <div className="App">
       <div className="cards">
         {
-          people.map(p => (
-            <Card 
-              key={p.name} 
-              person={p}
-            />
-          ))
+          !data ? (
+            <p>Loading...</p>
+          ) : (
+
+            data?.results.map(p => (
+              <Card 
+                key={p.name} 
+                person={p}
+              />
+            ))
+          )
         }
       </div>
     </div>

@@ -22,7 +22,7 @@ export const Card = ({ person }: CardProps) => {
     <div className="card">
       <div className="container">
         <h4><b>{ person.name }</b></h4>
-        <p>{ person.birthYear }</p>
+        <p>{ person.birth_year }</p>
         <p>{ person.gender }</p>
       </div>
       <a onClick={goToDetails}>See more...</a>
