@@ -14,18 +14,18 @@ export const HomeScreen = () => {
     <div className="App">
       <div className="cards">
         {
-          !data ? (
-            <p>Loading...</p>
-          ) : (
-
-            data?.results.map(p => (
+          !data && <p>Loading...</p>
+        }
+       {
+           data && (
+             data?.results.map(p => (
               <Card 
                 key={p.name} 
                 person={p}
               />
             ))
           )
-        }
+       } 
       </div>
     </div>
   )
