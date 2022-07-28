@@ -4,14 +4,12 @@ import { PeopleResponseFromAPI, Person } from '../types'
 
 interface State<T> {
   data?: T
-  loading: boolean
   error: boolean
 }
 
 export const useFetch = <T,>(url: string): State<T>=> {
   const isMounted = useRef<boolean>(true)
   const [state, setState] = useState<State<T>>({
-    loading: true,
     error: false,
     data: undefined
   })
@@ -29,7 +27,6 @@ export const useFetch = <T,>(url: string): State<T>=> {
         console.log(data)
         if (isMounted.current) {
           setState({
-              loading: false,
               error: false,
               data
           })

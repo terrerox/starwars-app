@@ -2,34 +2,18 @@ import { useState, useEffect } from 'react'
 import { Card } from './Card'
 import { Person, PeopleResponseFromAPI } from '../../types'
 import { useFetch } from '../../hooks/useFetch'
+import { useSearch } from '../../hooks/useSearch'
+
 
 import './Home.css'
 
 const url = 'https://swapi.dev/api/people'
 
 export const HomeScreen = () => {
-  const { data, loading } = useFetch<PeopleResponseFromAPI>(url)
-  const [people, setPeople] = useState<Array<Person> | undefined>([])
   const [inputValue, setInputValue] = useState<string>("")
+  const { data } = useFetch<PeopleResponseFromAPI>(url)
+  const people = useSearch(data?.results, inputValue)
 
-  useEffect(() => {
-    setPeople(data?.results)
-  
-  }, [data])
-
-  useEffect(() => {
-    const filterByName = (): void => { 
-      const value = inputValue.trim().toLowerCase()
-      setPeople(
-        people?.filter(person => { 
-          const name = person.name.toLowerCase()
-          return name.includes(value) 
-        })
-      ) 
-    }
-    filterByName()
-  
-  }, [inputValue])
   
   
   return (
@@ -41,6 +25,11 @@ export const HomeScreen = () => {
         {
           !data && <p>Loading...</p>
         }
+       {
+           data && (
+            people?.length === 0 && <p>Character not found</p>
+           )
+       } 
        {
            data && (
             people?.map(p => (
