@@ -7,7 +7,6 @@ export const useSearch = (people: Array<Person> | undefined, inputValue: string)
     
     useEffect(() => {
         const filterByName = (): void => { 
-          if(!people) return
 
           const value = inputValue.trim().toLowerCase()
           setState(
@@ -19,7 +18,7 @@ export const useSearch = (people: Array<Person> | undefined, inputValue: string)
         }
         filterByName()
       
-      }, [inputValue])
+      }, [inputValue, people])
 
       return state
 }
