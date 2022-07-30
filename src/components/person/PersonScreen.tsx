@@ -11,6 +11,10 @@ export const PersonScreen = () => {
   return (
     <div className="card">
       <div className="container">
+        { 
+          !data && <p>Loading...</p>
+        }
+
         <h4><b>{ data?.name }</b></h4>
         <p>{ data?.birth_year }</p>
         <p>{ data?.gender }</p>

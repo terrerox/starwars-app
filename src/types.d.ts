@@ -11,6 +11,7 @@ export interface Person {
 }
   
 export interface PeopleResponseFromAPI {
+    count: number,
     results: Array<Person>
 }
 

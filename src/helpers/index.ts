@@ -27,3 +27,8 @@ import { Person, PeopleResponseFromAPI } from '../types'
 //       }
 //     })
 //   }
+
+export const calculatePages = (count: number | undefined): number => { 
+    if(!count) return 0
+    return Math.ceil( count / 10 )
+}

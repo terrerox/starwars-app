@@ -3,6 +3,7 @@ import { Card } from './Card'
 import { Person, PeopleResponseFromAPI } from '../../types'
 import { useFetch } from '../../hooks/useFetch'
 import { useSearch } from '../../hooks/useSearch'
+import { calculatePages } from '../../helpers'
 
 
 import './Home.css'
@@ -13,8 +14,7 @@ export const HomeScreen = () => {
   const [inputValue, setInputValue] = useState<string>("")
   const { data } = useFetch<PeopleResponseFromAPI>(url)
   const people = useSearch(data?.results, inputValue)
-
-  
+  const totalOfPages = calculatePages(data?.count)
   
   return (
     <main className="App">
@@ -39,6 +39,16 @@ export const HomeScreen = () => {
               />
             ))
           )
+       } 
+       {
+           data && (
+            Array.from({length: totalOfPages}).map((value, index) => {
+              const pageNumber = index + 1
+              return (
+                <button>{pageNumber}</button>
+              )
+            })
+           )
        } 
       </section>
     </main>
