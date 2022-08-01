@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
-import { Person, PeopleResponseFromAPI, LocationState } from '../../types'
+import { Person, LocationState } from '../../types'
 import { useLocation } from 'react-router-dom'
 import { useFetch } from '../../hooks/useFetch'
+import { PersonDetailsCard } from './PersonDetailsCard'
+import { NavLink } from "react-router-dom";
 
 export const PersonScreen = () => {
   const location = useLocation()
@@ -9,16 +10,14 @@ export const PersonScreen = () => {
   const { data } = useFetch<Person>(url)
 
   return (
-    <div className="card">
-      <div className="container">
-        { 
+    <>
+      <NavLink to="/">Go back</NavLink>
+        {
           !data && <p>Loading...</p>
         }
-
-        <h4><b>{ data?.name }</b></h4>
-        <p>{ data?.birth_year }</p>
-        <p>{ data?.gender }</p>
-      </div>
-    </div> 
-  )
+        {
+          data && <PersonDetailsCard person={data} />
+        }
+      </>
+      )
 }
