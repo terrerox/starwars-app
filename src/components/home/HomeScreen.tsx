@@ -8,13 +8,23 @@ import { calculatePages } from '../../helpers'
 
 import './Home.css'
 
-const url = 'https://swapi.dev/api/people'
 
 export const HomeScreen = () => {
   const [inputValue, setInputValue] = useState<string>("")
-  const { data } = useFetch<PeopleResponseFromAPI>(url)
+  const [apiUrl, setApiUrl] = useState<string>("https://swapi.dev/api/people")
+  const { data } = useFetch<PeopleResponseFromAPI>(apiUrl)
   const people = useSearch(data?.results, inputValue)
   const totalOfPages = calculatePages(data?.count)
+
+  const previousUrl = data?.previous ?? ""
+  const nextUrl = data?.next ?? ""
+
+  const previous = () => setApiUrl(previousUrl)
+  const next = () => setApiUrl(nextUrl)
+
+  const goToExactPage = (page: number) => {
+    setApiUrl(`https://swapi.dev/api/people/?page=${page}`)
+  } 
   
   return (
     <main className="App">
@@ -39,16 +49,41 @@ export const HomeScreen = () => {
               />
             ))
           )
+       }
+       {
+        data && (
+          <button 
+            onClick={(event: React.MouseEvent<HTMLElement>) => previous()}
+            disabled={previousUrl === ""}
+          >
+              Previous
+          </button>
+        )
        } 
        {
+        
            data && (
             Array.from({length: totalOfPages}).map((value, index) => {
               const pageNumber = index + 1
               return (
-                <button>{pageNumber}</button>
+                <button
+                  onClick={(event: React.MouseEvent<HTMLElement>) => goToExactPage(pageNumber)}
+                >
+                  {pageNumber}
+                </button>
               )
             })
            )
+       } 
+       {
+        data && (
+          <button 
+            onClick={(event: React.MouseEvent<HTMLElement>) => next()}
+            disabled={nextUrl === ""}
+          >
+            Next
+          </button>
+        )
        } 
       </section>
     </main>
