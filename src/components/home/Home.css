@@ -25,3 +25,16 @@
 .container {
     padding: 2px 16px;
 }
+
+/* pagination, search */
+
+.pagination, .search {
+    margin: 3% 0 3% 0;
+    display: flex;
+    justify-content: center; 
+}
+
+/* loading, notFoundMsg */
+.loading, .notFoundMsg {
+    text-align: center;
+}

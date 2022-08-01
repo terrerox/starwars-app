@@ -18,6 +18,6 @@ export const PersonScreen = () => {
         {
           data && <PersonDetailsCard person={data} />
         }
-      </>
-      )
+    </>
+  )
 }

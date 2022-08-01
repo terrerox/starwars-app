@@ -28,16 +28,16 @@ export const HomeScreen = () => {
   
   return (
     <main className="App">
-      <section className="filter">
-        <input type="text" placeholder="Find by name" onChange={e => setInputValue(e.target.value)}/>
+      <section className="search">
+        <input type="search" placeholder="Find by name" onChange={e => setInputValue(e.target.value)}/>
       </section>
       <section className="cards">
         {
-          !data && <p>Loading...</p>
+          !data && <p className="loading">Loading...</p>
         }
        {
            data && (
-            people?.length === 0 && <p>Character not found</p>
+            people?.length === 0 && <p className="notFoundMsg">Character not found</p>
            )
        } 
        {
@@ -50,7 +50,9 @@ export const HomeScreen = () => {
             ))
           )
        }
-       {
+      </section>
+      <section className="pagination">
+      {
         data && (
           <button 
             onClick={(event: React.MouseEvent<HTMLElement>) => previous()}
